@@ -1,0 +1,35 @@
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/cepdb
+    username: cepuser
+    password: ceppass
+  jpa:
+    hibernate:
+      ddl-auto: update
+    open-in-view: false
+  jackson:
+    default-property-inclusion: non_null
+
+cep:
+  api:
+    base-url: http://localhost:8089
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,metrics
+  endpoint:
+    health:
+      probes:
+        enabled: true
+
+aws:
+  archive:
+    enabled: false
+    s3-bucket: cep-query-logs
+  region: us-east-1
+  access-key: ${AWS_ACCESS_KEY_ID:dummy}
+  secret-key: ${AWS_SECRET_ACCESS_KEY:dummy}
+  s3:
+    endpoint: ${AWS_S3_ENDPOINT:}
