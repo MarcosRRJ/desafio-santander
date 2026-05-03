@@ -28,4 +28,8 @@ public class CepQueryLog {
     }
 
     public UUID getId() { return id; }
+    public String getCepConsultado() { return cepConsultado; }
+    public OffsetDateTime getDataHoraConsulta() { return dataHoraConsulta; }
+    public Integer getStatusHttpExterno() { return statusHttpExterno; }
+    public String getPayloadRetorno() { return payloadRetorno; }
 }

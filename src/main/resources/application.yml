@@ -23,3 +23,13 @@ management:
     health:
       probes:
         enabled: true
+
+aws:
+  archive:
+    enabled: false
+    s3-bucket: cep-query-logs
+  region: us-east-1
+  access-key: ${AWS_ACCESS_KEY_ID:dummy}
+  secret-key: ${AWS_SECRET_ACCESS_KEY:dummy}
+  s3:
+    endpoint: ${AWS_S3_ENDPOINT:}

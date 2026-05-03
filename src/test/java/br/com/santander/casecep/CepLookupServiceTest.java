@@ -4,6 +4,7 @@ import br.com.santander.casecep.application.CepLookupService;
 import br.com.santander.casecep.application.CepResponse;
 import br.com.santander.casecep.domain.CepClient;
 import br.com.santander.casecep.domain.CepQueryLogRepository;
+import br.com.santander.casecep.domain.port.QueryLogArchivePort;
 import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -14,7 +15,8 @@ import static org.mockito.Mockito.*;
 class CepLookupServiceTest {
     private final CepClient client = mock(CepClient.class);
     private final CepQueryLogRepository repository = mock(CepQueryLogRepository.class);
-    private final CepLookupService service = new CepLookupService(client, repository);
+    private final QueryLogArchivePort archivePort = mock(QueryLogArchivePort.class);
+    private final CepLookupService service = new CepLookupService(client, repository, archivePort);
 
     @Test
     void shouldSearchAndPersistLog() {
@@ -24,6 +26,7 @@ class CepLookupServiceTest {
 
         assertThat(response.uf()).isEqualTo("SP");
         verify(repository, times(1)).save(any());
+        verify(archivePort, times(1)).archive(any());
     }
 
     @Test

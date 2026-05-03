@@ -58,6 +58,11 @@
             <version>3.9.1</version>
             <scope>test</scope>
         </dependency>
+        <dependency>
+            <groupId>software.amazon.awssdk</groupId>
+            <artifactId>s3</artifactId>
+        </dependency>
+
     </dependencies>
 
     <build>
