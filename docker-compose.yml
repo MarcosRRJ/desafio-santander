@@ -15,3 +15,15 @@ services:
       - "8089:8080"
     volumes:
       - ./wiremock:/home/wiremock
+
+  localstack:
+    image: localstack/localstack:3.4
+    environment:
+      - SERVICES=s3,rds,sts,iam
+      - AWS_DEFAULT_REGION=us-east-1
+      - DEBUG=1
+    ports:
+      - "4566:4566"
+    volumes:
+      - ./localstack/init:/etc/localstack/init
+      - /var/run/docker.sock:/var/run/docker.sock

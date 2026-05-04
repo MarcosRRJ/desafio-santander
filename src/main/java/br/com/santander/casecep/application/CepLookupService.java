@@ -27,7 +27,6 @@ public class CepLookupService {
                 String.format("{\"cep\":\"%s\",\"logradouro\":\"%s\",\"bairro\":\"%s\",\"localidade\":\"%s\",\"uf\":\"%s\"}",
                         response.cep(), response.logradouro(), response.bairro(), response.localidade(), response.uf())));
         archivePort.archive(log);
-
         return response;
     }
 
