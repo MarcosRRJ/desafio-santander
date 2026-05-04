@@ -1,0 +1,29 @@
+services:
+  postgres:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_DB: cepdb
+      POSTGRES_USER: cepuser
+      POSTGRES_PASSWORD: ceppass
+    ports:
+      - "5432:5432"
+
+  wiremock:
+    image: wiremock/wiremock:3.5.4
+    command: ["--global-response-templating", "--verbose"]
+    ports:
+      - "8089:8080"
+    volumes:
+      - ./wiremock:/home/wiremock
+
+  localstack:
+    image: localstack/localstack:3.4
+    environment:
+      - SERVICES=s3,rds,sts,iam
+      - AWS_DEFAULT_REGION=us-east-1
+      - DEBUG=1
+    ports:
+      - "4566:4566"
+    volumes:
+      - ./localstack/init:/etc/localstack/init
+      - /var/run/docker.sock:/var/run/docker.sock
