@@ -85,3 +85,49 @@ aws --endpoint-url=http://localhost:4566 rds describe-db-instances --db-instance
 ```
 
 > Observação: no LocalStack, o serviço RDS é emulado na API de controle. O banco relacional real da aplicação segue no container PostgreSQL.
+=======
+
+## Endpoints
+### Buscar CEP
+`GET /api/ceps/{cep}`
+
+Exemplo:
+```bash
+curl http://localhost:8080/api/ceps/01001000
+```
+
+### Healthcheck
+`GET /actuator/health`
+
+## Estrutura principal
+- `application`: caso de uso e DTOs
+- `domain`: portas e entidade de domínio
+- `infrastructure`: controller, adapter HTTP externo e repositório JPA
+
+## Subindo local
+1. Subir dependências:
+```bash
+docker compose up -d postgres wiremock
+```
+2. Executar aplicação:
+```bash
+mvn spring-boot:run
+```
+
+## WireMock (massa)
+O mock principal está em:
+- `wiremock/mappings/cep-01001000.json`
+
+Você pode adicionar novos CEPs criando novos arquivos em `wiremock/mappings/*.json`.
+
+## CI
+Pipeline em:
+- `.github/workflows/ci.yml`
+
+Executa `mvn clean verify` com Java 21 e gera cobertura via JaCoCo.
+
+
+## AWS (diferencial)
+- A aplicação já suporta arquivamento opcional dos logs em S3.
+- Para habilitar: `aws.archive.enabled=true` e definir `aws.archive.s3-bucket`.
+- Para demo local com LocalStack, configure `AWS_S3_ENDPOINT=http://localhost:4566`.
